@@ -1,0 +1,5 @@
+aaa: ['file']
+aaa: True
+aaa: t.txt
+aaa: t.txt
+None
