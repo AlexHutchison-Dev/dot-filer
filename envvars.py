@@ -9,3 +9,7 @@ def register_path():
 
 def dotfiles_dir():
     return os.environ["HOME"] + "/dotfiles"
+
+
+def register_file():
+    return os.environ["HOME"] + "/.local/bin/dotfiles.txt"
