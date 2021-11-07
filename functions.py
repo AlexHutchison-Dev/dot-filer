@@ -5,7 +5,7 @@ from shutil import copyfile
 
 def add_file(file_path):
     if not check_for_file(file_path):
-        print("usage dot-filer <file>")
+        print("Error: file not found")
         return 1
     else:
         if not check_for_file_in_register(path_relative_to_home(file_path)):
