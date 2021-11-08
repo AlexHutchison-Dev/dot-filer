@@ -1,37 +1,16 @@
 import os
 import envvars
-from shutil import copyfile
+import file_helpers as fh
 
 
 def add_file(file_path):
-    if not check_for_file(file_path):
+    if not fh.check_for_file(file_path):
         print("Error: file not found")
         return 1
     else:
-        if not check_for_file_in_register(path_relative_to_home(file_path)):
+        if not fh.check_for_file_in_register(path_relative_to_home(file_path)):
             add_file_to_register(path_relative_to_home(file_path))
         add_file_to_dotfiles_dir(file_path)
-
-
-def check_for_file(file):
-    if os.path.exists(file):
-        return True
-    elif os.path.exists(os.getcwd() + "/" + file):
-        return True
-    else:
-        return False
-
-
-def check_for_file_in_register(file_path):
-    found_in_register = False
-    if not os.path.exists(envvars.register_file()):
-        return found_in_register
-    else:
-        f = open(envvars.register_file(), "r+")
-        for line in f:
-            if file_path in line:
-                found_in_register = True
-    return found_in_register
 
 
 def path_relative_to_home(file_path):
@@ -69,7 +48,7 @@ def add_file_to_dotfiles_dir(path):
     os.chdir(envvars.dotfiles_dir())
     create_directory_structure(path_relative_to_home(path))
     os.chdir(extract_target_dir(path))
-    copyfile(path, generate_destination_path(path))
+    fh.copy_file(path, generate_destination_path(path))
 
 
 def create_directory_structure(path):

@@ -3,13 +3,9 @@
 import os
 
 
-def register_path():
-    return os.environ["HOME"] + "/" + "register.txt"
-
-
 def dotfiles_dir():
     return os.environ["HOME"] + "/dotfiles"
 
 
-def register_file():
+def register_path():
     return os.environ["HOME"] + "/.local/bin/dotfiles.txt"
