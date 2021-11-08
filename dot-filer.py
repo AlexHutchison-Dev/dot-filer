@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import functions
+import git
 
 
 def main():
@@ -10,6 +11,9 @@ def main():
             print("Running")
             for file in range(2, len(sys.argv)):
                 functions.add_file(sys.argv[file])
+        elif sys.argv[1] == "-g" or sys.argv[1] == "git":
+            git.git_module()
+
     else:
         print("usage dot-filer -a <file name>")
 
