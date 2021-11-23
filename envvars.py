@@ -8,7 +8,7 @@ def dotfiles_dir():
 
 
 def register_path():
-    return os.environ["HOME"] + "/.local/bin/dotfiles.txt"
+    return os.environ["HOME"] + "/Dotfiles/dotfiles.txt"
 
 
 # TODO need to change this so that it it prompts for rep url on git initialization

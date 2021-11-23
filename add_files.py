@@ -3,12 +3,15 @@ import envvars
 import file_helpers as fh
 
 
-def add_file(file_path):
+def add_file(file_path, env_instance):
+    
+    env = env_instance
+
     if not fh.check_for_file(file_path):
         print("Error: file not found")
         return 1
     else:
-        if not fh.check_for_file_in_register(path_relative_to_home(file_path)):
+        if not fh.check_for_file_in_register(path_relative_to_home(file_path, env.get_register_path())):
             add_file_to_register(path_relative_to_home(file_path))
         add_file_to_dotfiles_dir(file_path)
 
@@ -37,15 +40,15 @@ def add_file_to_register(path_relto_home):
 
 
 def check_for_dotfiles_dir():
-    if os.path.exists(envvars.dotfiles_dir()):
+    if os.path.exists(env.get_dotfiles_dir()):
         return True
     else:
-        os.mkdir(envvars.dotfiles_dir())
+        os.mkdir(env.get_dotfiles_dir())
 
 
 def add_file_to_dotfiles_dir(path):
     check_for_dotfiles_dir()
-    os.chdir(envvars.dotfiles_dir())
+    os.chdir(env.get_dotfiles_dir())
     create_directory_structure(path_relative_to_home(path))
     os.chdir(extract_target_dir(path))
     fh.copy_file(path, generate_destination_path(path))
@@ -63,7 +66,7 @@ def extract_target_dir(path):
 
 
 def generate_destination_path(path):
-    return envvars.dotfiles_dir() + path_relative_to_home(path)
+    return env.get_dotfiles_dir() + path_relative_to_home(path)
 
 
 def extract_list_of_directories(path):
@@ -86,7 +89,7 @@ def create_dirs(dirs):
 
 
 def path_created_so_far(dirs, index):
-    path_parts = [envvars.dotfiles_dir(), dirs_created_so_far(dirs, index)]
+    path_parts = [env.get_dotfiles_dir(), dirs_created_so_far(dirs, index)]
     return "/".join(path_parts)
 
 
