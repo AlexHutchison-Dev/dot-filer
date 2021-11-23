@@ -1,12 +1,11 @@
 import os
-import envvars
+import envvars_class
 import file_helpers as fh
 
+env = envvars_class.Env()
 
-def add_file(file_path, env_instance):
+def add_file(file_path):
     
-    env = env_instance
-
     if not fh.check_for_file(file_path):
         print("Error: file not found")
         return 1

@@ -1,5 +1,4 @@
 ## A Class to store environment variables and manage there values based on the operating system ##
-import sys
 import os
 class Env:
   dotfiles_path = ""

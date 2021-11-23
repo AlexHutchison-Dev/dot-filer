@@ -11,14 +11,14 @@ def main():
     print(len(sys.argv))
     env = envvars_class.Env()
     print(os.environ["HOME"])
-    setup.startup_checks(env)
+    setup.startup_checks()
     if len(sys.argv) >= 3:
         if sys.argv[1] == "-a" or sys.argv[1] == "add":
             print("Running")
             for file in range(2, len(sys.argv)):
-                add_files.add_file(sys.argv[file], env)
+                add_files.add_file(sys.argv[file])
         elif sys.argv[1] == "-g" or sys.argv[1] == "git":
-            git.git_module(env)
+            git.git_module()
 
     else:
         print("usage dot-filer -a <file name>")

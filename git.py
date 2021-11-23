@@ -5,14 +5,14 @@ import os
 import filecmp
 from datetime import datetime
 import file_helpers as fh
-import envvars
+import envvars_class
 
 # TODO replace os.system calls with the more advanced methods that allow me to verify that htings
 # worked
 
+env = envvars_class.Env()
 
-def git_module(env_instance):
-    env = env_instance
+def git_module():
     check_for_git_repo()
     print("\n\n In Git Module \n\n")
     copy_modified_files(check_dotfiles_for_modifications())
