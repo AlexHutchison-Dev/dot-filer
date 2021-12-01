@@ -1,9 +1,8 @@
 import os
-import envvars
 from shutil import copyfile
 
 
-def check_for_file(file):
+def path_exists(file):
     if os.path.exists(file):
         return True
     elif os.path.exists(os.getcwd() + "/" + file):

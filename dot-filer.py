@@ -4,13 +4,9 @@ import setup
 import add_files
 import git
 import os
-import envvars_class
 
 
 def main():
-    print(len(sys.argv))
-    env = envvars_class.Env()
-    print(os.environ["HOME"])
     setup.startup_checks()
     if len(sys.argv) >= 3:
         if sys.argv[1] == "-a" or sys.argv[1] == "add":

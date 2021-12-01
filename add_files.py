@@ -6,13 +6,12 @@ env = envvars_class.Env()
 
 def add_file(file_path):
     
-    if not fh.check_for_file(file_path):
+    if not fh.path_exists(file_path):
         print("Error: file not found")
-        return 1
     else:
-        if not fh.check_for_file_in_register(path_relative_to_home(file_path, env.get_register_path())):
+        if not fh.check_for_file_in_register(path_relative_to_home(file_path), env.get_register_path()):
             add_file_to_register(path_relative_to_home(file_path))
-        add_file_to_dotfiles_dir(file_path)
+            add_file_to_dotfiles_dir(file_path)
 
 
 def path_relative_to_home(file_path):

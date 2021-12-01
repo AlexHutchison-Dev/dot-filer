@@ -43,9 +43,9 @@ def initialize_git_repo():
 
 def add_git_remote_origin_url():
     cwd = os.getcwd()
-    print("adding remote url: {}".format(envvars.git_repo_remote_url))
+    print("adding remote url: {}".format(env.get_git_repo_uri()))
     os.chdir(env.get_dotfiles_dir())
-    os.system("git remote add origin {}".format(envvars.git_repo_remote_url))
+    os.system("git remote add origin {}".format(env.get_git_repo_uri()))
     os.chdir(cwd)
 
 
