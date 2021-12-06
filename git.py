@@ -12,13 +12,25 @@ import envvars_class
 
 env = envvars_class.Env()
 
+
 def git_module():
-    check_for_git_repo()
     print("\n\n In Git Module \n\n")
+    check_for_git_repo()
+    get_local_staus_relative_to_remote()
     copy_modified_files(check_dotfiles_for_modifications())
-    git_add_in_dotfiles_dir()
-    git_commit()
-    git_push()
+    perform_git_add()
+    perform_git_commit()
+    perform_git_push()
+
+
+def get_local_staus_relative_to_remote():
+    output = os.popen("git remote show origin").read()
+    print(f"output: {output}")
+    if "(fast-forwardable)" in output:
+        return "ahead"
+    elif "(local out of date)" in output:
+        return "behind"
+    return
 
 
 def check_for_git_repo():
@@ -43,16 +55,18 @@ def initialize_git_repo():
 
 def add_git_remote_origin_url():
     cwd = os.getcwd()
-    print("adding remote url: {}".format(env.get_git_repo_uri()))
+    print("adding remote url: {}".format(envvars_class.get_git_repo_uri()))
     os.chdir(env.get_dotfiles_dir())
-    os.system("git remote add origin {}".format(env.get_git_repo_uri()))
+    os.system("git remote add origin {}".format(envvars_class.get_git_repo_uri()))
     os.chdir(cwd)
 
 
 def check_dotfiles_for_modifications():
     files_up_to_date = True
     outdated_files = []
-    lines = fh.read_register_by_line(fh.open_register_for_reading(env.get_register_path()))
+    lines = fh.read_register_by_line(
+        fh.open_register_for_reading(env.get_register_path())
+    )
     for line in lines:
         line = line.replace("\n", "")
         if not diff_stored_and_current_files(line):
@@ -75,14 +89,14 @@ def copy_modified_files(files):
         fh.copy_file(os.environ["HOME"] + file, env.get_dotfiles_dir() + file)
 
 
-def git_add_in_dotfiles_dir():
+def perform_git_add():
     cwd = os.getcwd()
     os.chdir(env.get_dotfiles_dir())
     os.system("git add .")
     os.chdir(cwd)
 
 
-def git_commit():
+def perform_git_commit():
     cwd = os.getcwd()
     os.chdir(env.get_dotfiles_dir())
     print("git commit -m {}".format(datetime.today().strftime("%Y-%m-%d-%H:%M:%S")))
@@ -93,7 +107,7 @@ def git_commit():
     os.chdir(cwd)
 
 
-def git_push():
+def perform_git_push():
     cwd = os.getcwd()
     os.chdir(env.get_dotfiles_dir())
     os.system("git push origin master")
