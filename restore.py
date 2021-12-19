@@ -4,6 +4,7 @@
 
 import os
 import envvars_class
+import file_helpers as fh
 
 env = envvars_class.Env()
 
@@ -15,7 +16,7 @@ def restore(path = env.get_dotfiles_dir()):
         if os.path.isdir(content):
             restore(os.path.join (os.getcwd(),content))
         else:
-           copy_file(os.path.join(os.getcwd(), content)) 
+           restore_file(os.path.join(os.getcwd(), content)) 
     return_to_parent_directory()
 
 
@@ -40,7 +41,7 @@ def remove_dotfiles_from_file_path(path):
     return os.path.sep.join(path_components)
 
 
-def copy_file(path):
+def restore_file(path):
     print(f'copying : {path} to: {remove_dotfiles_from_file_path(path)}')
 
 
