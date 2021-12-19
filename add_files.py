@@ -10,6 +10,7 @@ def add_file(file_path):
         print("Error: file not found")
     else:
         if not fh.check_for_file_in_register(path_relative_to_home(file_path), env.get_register_path()):
+            print(f'passing {fh.path_relative_to_home(file_path)} to path_relative_to_home')
             add_file_to_register(path_relative_to_home(file_path))
             add_file_to_dotfiles_dir(file_path)
 
@@ -28,12 +29,10 @@ def remove_homedir_path(path):
 
 def add_file_to_register(path_relto_home):
     cwd = os.getcwd()
-
-    os.chdir(os.environ["HOME"] + "/.local/bin")
-
+    print(f'adding file to register: {path_relto_home}')
+    os.chdir(env.get_dotfiles_dir())
     register = open("dotfiles.txt", "a+")
-    register.write("%s\r\n" % (path_relto_home))
-
+    register.write("%s\r\n" % path_relto_home)
     os.chdir(cwd)
 
 

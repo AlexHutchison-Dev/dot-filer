@@ -1,5 +1,6 @@
 import os
 import envvars_class
+import git
 
 env = envvars_class.Env()
 
@@ -7,7 +8,7 @@ env = envvars_class.Env()
 def startup_checks():
     check_dotfiles_dir_exists()
     check_register_file_exists()
-
+    git.check_for_git_repo()
 
 def check_register_file_exists():
     if os.path.exists(env.get_register_path()):

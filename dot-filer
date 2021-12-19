@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 import sys
+import os
 import setup
 import add_files
 import git
-
+import restore
 
 def main():
 
     setup.startup_checks()
-
+    os.chdir(os.environ["HOME"])
     if len(sys.argv) >= 2:
         switch_based_on_flag(sys.argv[1])
     else:
@@ -21,6 +22,8 @@ def switch_based_on_flag(flag):
         "add": pass_files_to_add_files,
         "-g": git.git_module,
         "git": git.git_module,
+        "-r": restore.restore,
+        "restore": restore.restore,
     }
 
     switcher[flag]()
