@@ -4,8 +4,8 @@ import filecmp
 import envvars_class
 
 
-
 env = envvars_class.Env()
+
 
 def path_exists(file):
     if os.path.exists(file):
@@ -44,8 +44,8 @@ def read_register_by_line(file):
 
 def diff_stored_and_current_files(path):
     path = remove_homedir_path(path)
+    print(f"path after removed homedir: {path}")
     return filecmp.cmp(env.get_dotfiles_dir() + path, os.environ["HOME"] + path)
-
 
 
 def path_relative_to_home(file_path):
@@ -56,6 +56,10 @@ def path_relative_to_home(file_path):
 
 
 def remove_homedir_path(path):
+    print(f'os.environ["HOME"]: {os.environ["HOME"]}')
+    print(f"path: {path}")
     if os.environ["HOME"] in path:
-        path.replace(os.environ["HOME"], "")
+        path = path.replace(os.environ["HOME"], "")
+    print(f"in remove home dir: {path}")
+    print(path.replace(os.environ["HOME"], ""))
     return path

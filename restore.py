@@ -8,20 +8,21 @@ import file_helpers as fh
 
 env = envvars_class.Env()
 
-def restore(path = env.get_dotfiles_dir()):
+
+def restore(path=env.get_dotfiles_dir()):
     if os.path.isdir(path):
-        os.chdir(path)        
+        os.chdir(path)
     contents = get_list_of_directory_contents(path)
     for content in contents:
         if os.path.isdir(content):
-            restore(os.path.join (os.getcwd(),content))
+            restore(os.path.join(os.getcwd(), content))
         else:
-           restore_file(os.path.join(os.getcwd(), content)) 
+            restore_file(os.path.join(os.getcwd(), content))
     return_to_parent_directory()
 
 
 def remove_git_directory_from_list(target_list):
-    if ".git" in target_list: 
+    if ".git" in target_list:
         target_list.remove(".git")
     return target_list
 
@@ -42,10 +43,11 @@ def remove_dotfiles_from_file_path(path):
 
 
 def restore_file(path):
-    print(f'copying : {path} to: {remove_dotfiles_from_file_path(path)}')
+    print(f"copying : {path} to: {remove_dotfiles_from_file_path(path)}")
+    print(fh.diff_stored_and_current_files(remove_dotfiles_from_file_path(path)))
 
 
 def return_to_parent_directory():
-    current_directories = os.getcwd().split("/" )
+    current_directories = os.getcwd().split("/")
     del current_directories[-1]
     os.chdir(os.sep.join(current_directories))

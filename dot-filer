@@ -8,6 +8,7 @@ import restore
 
 def main():
 
+
     setup.startup_checks()
     os.chdir(os.environ["HOME"])
     if len(sys.argv) >= 2:

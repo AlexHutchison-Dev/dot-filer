@@ -55,17 +55,18 @@ def add_git_remote_origin_url():
     os.system("git remote add origin {}".format(env.get_git_repo_uri()))
     os.chdir(cwd)
 
-#TODO This function too long and toomany levels of abstraction
+
+# TODO This function too long and toomany levels of abstraction
 def check_dotfiles_for_modifications():
     files_up_to_date = True
     outdated_files = []
-    lines = fh.read_register_by_line(
-        fh.open_register_for_reading(env.get_register_path())
-    )
-    for line in lines:
-        line = line.replace("\n", "")
-        if not fh.diff_stored_and_current_files(fh.path_relative_to_home(line)):
-            outdated_files.append(line)
+    # lines = fh.read_register_by_line(
+    #     fh.open_register_for_reading(env.get_register_path())
+    # )
+    # for line in lines:
+    #     line = line.replace("\n", "")
+    #     if not fh.diff_stored_and_current_files(fh.path_relative_to_home(line)):
+    #         outdated_files.append(line)
     print("Files up to date: {}".format(files_up_to_date))
     return outdated_files
 
