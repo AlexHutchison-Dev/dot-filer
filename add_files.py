@@ -4,20 +4,25 @@ import file_helpers as fh
 
 env = envvars_class.Env()
 
+
 def add_file(file_path):
-    
+
     if not fh.path_exists(file_path):
         print("Error: file not found")
     else:
-        if not fh.check_for_file_in_register(fh.path_relative_to_home(file_path), env.get_register_path()):
-            print(f'passing {fh.path_relative_to_home(file_path)} to fh.path_relative_to_home')
+        if not fh.check_for_file_in_register(
+            fh.path_relative_to_home(file_path), env.get_register_path()
+        ):
+            print(
+                f"passing {fh.path_relative_to_home(file_path)} to fh.path_relative_to_home"
+            )
             add_file_to_register(fh.path_relative_to_home(file_path))
             add_file_to_dotfiles_dir(file_path)
 
 
 def add_file_to_register(path_relto_home):
     cwd = os.getcwd()
-    print(f'adding file to register: {path_relto_home}')
+    print(f"adding file to register: {path_relto_home}")
     os.chdir(env.get_dotfiles_dir())
     register = open("dotfiles.txt", "a+")
     register.write("%s\r\n" % path_relto_home)

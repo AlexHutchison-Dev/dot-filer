@@ -6,8 +6,9 @@ import add_files
 import git
 import restore
 
-def main():
 
+def main():
+    print(f"argv: {sys.argv}")
     setup.startup_checks()
     os.chdir(os.environ["HOME"])
     if len(sys.argv) >= 2:
@@ -17,7 +18,7 @@ def main():
 
 
 def switch_based_on_flag(flag):
-    switcher = {
+    switch = {
         "-a": pass_files_to_add_files,
         "add": pass_files_to_add_files,
         "-g": git.git_module,
@@ -25,13 +26,19 @@ def switch_based_on_flag(flag):
         "-r": restore.restore,
         "restore": restore.restore,
     }
-
-    switcher[flag]()
+    print(f"switch flag: {flag}")
+    # TODO should add help promt here when help file written
+    switch[flag]()
+    # switch.get(flag, "invalid input")
 
 
 def pass_files_to_add_files():
     for file in range(2, len(sys.argv)):
         add_files.add_file(sys.argv[file])
+
+
+def log_restore():
+    print("restoring")
 
 
 if __name__ == "__main__":
